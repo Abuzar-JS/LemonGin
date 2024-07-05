@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"errors"
+	"golang-crud/data/request"
 	"golang-crud/helper"
 	"golang-crud/model"
 
@@ -25,19 +27,28 @@ func (u *UserRepositoryImpl) FindAll() []model.User {
 }
 
 func (u *UserRepositoryImpl) FindById(userId int) (User model.User, err error) {
-	panic("unimplemented")
+	var user model.User
+	result := u.Db.Find(&user, userId)
+	if result != nil {
+		return user, nil
+	} else {
+		return user, errors.New("user is not found")
+	}
+
 }
 
-// Save implements UserRepository.
 func (u *UserRepositoryImpl) Save(user model.User) {
-	panic("unimplemented")
+	result := u.Db.Create(&user)
+	helper.ReturnError(result.Error)
+
 }
 
-// Update implements UserRepository.
 func (u *UserRepositoryImpl) Update(user model.User) {
-	panic("unimplemented")
-}
+	var updateUser = request.UpdateUserRequest{
+		Id:   user.Id,
+		Name: user.Name,
+	}
 
-func NewUserRepsotoryImpl(Db *gorm.DB) UserRepository {
-	return &UserRepositoryImpl{Db: Db}
+	result := u.Db.Model(&user).Updates(updateUser)
+	helper.ReturnError(result.Error)
 }
