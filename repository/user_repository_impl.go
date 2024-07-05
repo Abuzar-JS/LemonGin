@@ -34,7 +34,6 @@ func (u *UserRepositoryImpl) FindById(userId int) (User model.User, err error) {
 	} else {
 		return user, errors.New("user is not found")
 	}
-
 }
 
 func (u *UserRepositoryImpl) Save(user model.User) {
