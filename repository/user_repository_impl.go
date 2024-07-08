@@ -13,6 +13,10 @@ type UserRepositoryImpl struct {
 	Db *gorm.DB
 }
 
+func NewUserRepositoryImpl(Db *gorm.DB) UserRepository {
+	return &UserRepositoryImpl{Db: Db}
+}
+
 func (u *UserRepositoryImpl) Delete(userId int) {
 	var user model.User
 	result := u.Db.Where("id = ?", userId).Delete(&user)

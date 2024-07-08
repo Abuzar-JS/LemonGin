@@ -46,7 +46,7 @@ func (controller *UserController) Update(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&updateUserRequest)
 	helper.ReturnError(err)
 
-	userId := ctx.Param("tagId")
+	userId := ctx.Param("userId")
 	id, err := strconv.Atoi(userId)
 	helper.ReturnError(err)
 	updateUserRequest.Id = id

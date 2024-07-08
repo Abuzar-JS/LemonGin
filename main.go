@@ -1,10 +1,16 @@
 package main
 
 import (
+	"golang-crud/config"
+	"golang-crud/controller"
 	"golang-crud/helper"
+	"golang-crud/model"
+	"golang-crud/repository"
+	"golang-crud/router"
+	"golang-crud/service"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 	"github.com/rs/zerolog/log"
 )
 
@@ -12,25 +18,21 @@ func main() {
 
 	log.Info().Msg("Started Server!")
 
-	routes := gin.Default()
+	//Database
 
-	routes.GET("", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "Hello Get",
-		})
-	})
+	db := config.DatabaseConnection()
+	validate := validator.New()
 
-	routes.POST("", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "Hello Post",
-		})
-	})
+	db.Table("user").AutoMigrate(&model.User{})
 
-	routes.DELETE("", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "Hello Delete",
-		})
-	})
+	userRepository := repository.NewUserRepositoryImpl(db)
+
+	userService := service.NewUserServiceImpl(userRepository, validate)
+
+	userController := controller.NewUserController(userService)
+
+	//Router
+	routes := router.NewRouter(userController)
 
 	server := &http.Server{
 		Addr:    ":8800",
