@@ -29,10 +29,11 @@ func (controller *UserController) Create(ctx *gin.Context) {
 	helper.ReturnError(err)
 
 	controller.UserService.Create(createUserRequest)
+
 	webResponse := response.Response{
 		Code:   http.StatusOK,
 		Status: "Ok",
-		Data:   nil,
+		Data:   createUserRequest,
 	}
 	ctx.Header("Content-Type", "application/json")
 
@@ -56,7 +57,7 @@ func (controller *UserController) Update(ctx *gin.Context) {
 	webResponse := response.Response{
 		Code:   http.StatusOK,
 		Status: "Ok",
-		Data:   nil,
+		Data:   updateUserRequest,
 	}
 	ctx.Header("Content-Type", "application/json")
 
@@ -74,7 +75,7 @@ func (controller *UserController) Delete(ctx *gin.Context) {
 	webResponse := response.Response{
 		Code:   http.StatusOK,
 		Status: "Ok",
-		Data:   nil,
+		Data:   userId,
 	}
 	ctx.Header("Content-Type", "application/json")
 

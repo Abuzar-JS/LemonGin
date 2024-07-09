@@ -21,6 +21,7 @@ func NewRouter(userController *controller.UserController) *gin.Engine {
 	userRouter.GET("/:userId", userController.FindById)
 	userRouter.POST("", userController.Create)
 	userRouter.PATCH("/:userId", userController.Update)
+	userRouter.PUT("/:userId", userController.Update)
 	userRouter.DELETE("/:userId", userController.Delete)
 
 	return router

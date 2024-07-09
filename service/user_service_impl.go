@@ -1,12 +1,13 @@
 package service
 
 import (
-	"github.com/go-playground/validator/v10"
 	"golang-crud/data/request"
 	"golang-crud/data/response"
 	"golang-crud/helper"
 	"golang-crud/model"
 	"golang-crud/repository"
+
+	"github.com/go-playground/validator/v10"
 )
 
 type UserServiceImpl struct {
