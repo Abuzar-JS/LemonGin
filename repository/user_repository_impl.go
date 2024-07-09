@@ -2,6 +2,7 @@ package repository
 
 import (
 	"errors"
+	"fmt"
 	"golang-crud/data/request"
 	"golang-crud/helper"
 	"golang-crud/model"
@@ -40,8 +41,9 @@ func (u *UserRepositoryImpl) FindById(userId int) (User model.User, err error) {
 	}
 }
 
-func (u *UserRepositoryImpl) Save(user model.User) {
+func (u *UserRepositoryImpl) Save(user *model.User) {
 	result := u.Db.Create(&user)
+	fmt.Println(result.Error)
 	helper.ReturnError(result.Error)
 
 }

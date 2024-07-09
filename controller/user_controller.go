@@ -28,12 +28,15 @@ func (controller *UserController) Create(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&createUserRequest)
 	helper.ReturnError(err)
 
-	controller.UserService.Create(createUserRequest)
+	newUser := controller.UserService.Create(createUserRequest)
 
 	webResponse := response.Response{
 		Code:   http.StatusOK,
 		Status: "Ok",
-		Data:   createUserRequest,
+		Data: gin.H{
+			"id":   newUser.Id,
+			"Name": newUser.Name,
+		},
 	}
 	ctx.Header("Content-Type", "application/json")
 

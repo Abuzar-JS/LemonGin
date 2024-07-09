@@ -19,13 +19,16 @@ func NewUserServiceImpl(userRepository repository.UserRepository, validate *vali
 	return &UserServiceImpl{UserRepository: userRepository, validate: validate}
 }
 
-func (u *UserServiceImpl) Create(user request.CreateUserRequest) {
+func (u *UserServiceImpl) Create(user request.CreateUserRequest) model.User {
 	err := u.validate.Struct(user)
 	helper.ReturnError(err)
 	userModel := model.User{
 		Name: user.Name,
 	}
-	u.UserRepository.Save(userModel)
+
+	u.UserRepository.Save(&userModel)
+
+	return userModel
 
 }
 
