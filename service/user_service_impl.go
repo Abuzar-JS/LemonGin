@@ -36,6 +36,7 @@ func (u *UserServiceImpl) Delete(userId int) {
 	u.UserRepository.Delete(userId)
 }
 
+// find all the users in DB
 func (u *UserServiceImpl) FindAll() []response.UserResponse {
 	result := u.UserRepository.FindAll()
 

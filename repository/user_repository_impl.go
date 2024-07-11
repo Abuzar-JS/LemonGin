@@ -45,7 +45,6 @@ func (u *UserRepositoryImpl) Save(user *model.User) {
 	result := u.Db.Create(&user)
 	fmt.Println(result.Error)
 	helper.ReturnError(result.Error)
-
 }
 
 func (u *UserRepositoryImpl) Update(user model.User) {
