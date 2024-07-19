@@ -11,6 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// UserController struct
 type UserController struct {
 	UserService service.UserService
 }
